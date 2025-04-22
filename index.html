@@ -53,11 +53,11 @@
       margin-top: 8px;
     }
     .sweet-message {
-      font-size: 0.85em;
-      color: #ffc;
-      margin-top: 10px;
-      font-style: italic;
-      display: none;
+  font-size: 0.85em;
+  color: #ffc;
+  margin-top: 12px;
+  font-style: italic;
+  display: none;
     }
     button {
       background-color: #ff4d4d;
@@ -119,30 +119,30 @@
           <button ${isUsed || isExpired ? "disabled" : ""} onclick="useCoupon(${item.ID}, this)">
             ${isExpired ? "หมดอายุแล้ว ❌" : isUsed ? "ใช้แล้ว ✓" : "ใช้คูปอง"}
           </button>
-          <div class="sweet-message">ขอให้มีความสุขหลังใช้นะคะ 🥺💕</div>
+          <div class="sweet-message" id="sweet-${item.ID}">ขอให้มีความสุขหลังใช้นะคะ 🥺💕</div>
         `;
         container.appendChild(div);
       });
     }
 
     async function useCoupon(id, btn) {
-      const card = btn.parentElement;
-      card.classList.add("animate");
+  const card = btn.parentElement;
+  card.classList.add("animate");
 
-      btn.disabled = true;
-      btn.innerText = "ใช้แล้ว ✓";
-      card.classList.add("used");
+  btn.disabled = true;
+  btn.innerText = "ใช้แล้ว ✓";
+  card.classList.add("used");
 
-      const message = card.querySelector(".sweet-message");
-      if (message) message.style.display = "block";
+  const message = card.querySelector(`#sweet-${id}`);
+  if (message) message.style.display = "block";
 
-      await fetch(apiUrl, {
-        method: "POST",
-        body: JSON.stringify({ ID: id })
-      });
+  await fetch(apiUrl, {
+    method: "POST",
+    body: JSON.stringify({ ID: id })
+  });
 
-      setTimeout(() => card.classList.remove("animate"), 600);
-    }
+  setTimeout(() => card.classList.remove("animate"), 600);
+}
 
     fetchCoupons();
   </script>
