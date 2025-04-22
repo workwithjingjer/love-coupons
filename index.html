@@ -125,16 +125,16 @@
       });
     }
 
-    async function useCoupon(id, btn) {
+   async function useCoupon(id, btn) {
   const card = btn.parentElement;
-  card.classList.add("animate");
 
-  btn.disabled = true;
-  btn.innerText = "ใช้แล้ว ✓";
-  card.classList.add("used");
+  // ล้างเนื้อหาเก่าในคูปอง
+  card.innerHTML = `
+    <div class="sweet-message">ขอให้มีความสุขหลังใช้นะคะ 🥺💕</div>
+  `;
 
-  const message = card.querySelector(`#sweet-${id}`);
-  if (message) message.style.display = "block";
+  // ทำ animation เล็กน้อย
+  card.classList.add("animate", "used");
 
   await fetch(apiUrl, {
     method: "POST",
