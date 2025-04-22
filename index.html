@@ -128,14 +128,15 @@
    async function useCoupon(id, btn) {
   const card = btn.parentElement;
 
-  // ล้างเนื้อหาเก่าในคูปอง
+  // ลบทุกอย่างแล้วใส่แค่ข้อความหวาน ๆ
   card.innerHTML = `
-    <div class="sweet-message">ขอให้มีความสุขหลังใช้นะคะ 🥺💕</div>
+    <div class="sweet-message" style="display: block;">ขอให้มีความสุขหลังใช้นะคะ 🥺💕</div>
   `;
 
-  // ทำ animation เล็กน้อย
+  // แอนิเมชันและเอฟเฟกต์นิดหน่อย
   card.classList.add("animate", "used");
 
+  // ส่งสถานะไปที่ Google Sheets
   await fetch(apiUrl, {
     method: "POST",
     body: JSON.stringify({ ID: id })
